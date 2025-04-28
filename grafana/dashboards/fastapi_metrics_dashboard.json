@@ -1,0 +1,39 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "type": "dashboard"
+        }
+      ]
+    },
+    "panels": [
+      {
+        "title": "HTTP Request Count",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "http_requests_total",
+            "legendFormat": "requests",
+            "interval": ""
+          }
+        ]
+      },
+      {
+        "title": "Process CPU Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "process_cpu_seconds_total",
+            "legendFormat": "cpu_seconds",
+            "interval": ""
+          }
+        ]
+      }
+    ],
+    "title": "FastAPI Metrics Dashboard",
+    "timezone": "browser",
+    "schemaVersion": 16,
+    "version": 1
+  }
+  
