@@ -4,6 +4,7 @@ WORKDIR /app
 COPY . /app
 
 RUN pip install --no-cache-dir \
+    kafka-python \
     fastapi \
     uvicorn \
     prometheus_client \

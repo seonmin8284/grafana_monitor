@@ -12,7 +12,7 @@ Instrumentator().instrument(app).expose(app)
 
 # Kafka Producer 생성
 producer = KafkaProducer(
-    bootstrap_servers='localhost:9093',
+    bootstrap_servers='kafka:9092',
     value_serializer=lambda x: json.dumps(x).encode('utf-8')
 )
 
@@ -22,6 +22,9 @@ fraud_model_recall = Gauge('fraud_model_recall', 'Recall of fraud detection mode
 fraud_model_accuracy = Gauge('fraud_model_accuracy', 'Accuracy of fraud detection model')
 fraud_model_feature_drift = Gauge('fraud_model_feature_drift', 'Feature drift score (e.g., population stability index)')
 fraud_transactions_total = Counter('fraud_transactions_total', 'Total number of processed transactions')
+
+def triton_infer(data: dict):
+    return {"inference": "dummy"}
 
 
 @app.get("/")
@@ -41,17 +44,20 @@ async def predict(data: dict):
     # 3. 메트릭 업데이트 (예시)
     fraud_transactions_total.inc()
 
-    return {"status": "sent to kafka", "triton_response": response}
+    return {"status": "sent to kafka", "triton_response": data}
 
 
-@app.get("/update_metrics")
-def update_metrics():
-    fraud_model_precision.set(round(random.uniform(0.8, 0.95), 3))
-    fraud_model_recall.set(round(random.uniform(0.7, 0.9), 3))
-    fraud_model_accuracy.set(round(random.uniform(0.85, 0.98), 3))
-    fraud_model_feature_drift.set(round(random.uniform(0.01, 0.15), 3))
+from fastapi import Body
+
+@app.post("/update_metrics")
+def update_metrics(metrics: dict = Body(...)):
+    fraud_model_precision.set(metrics["precision"])
+    fraud_model_recall.set(metrics["recall"])
+    fraud_model_accuracy.set(metrics["accuracy"])
+    fraud_model_feature_drift.set(metrics["drift"])
     fraud_transactions_total.inc()
     return {"status": "metrics updated"}
+
 
 
 # Prometheus HTTP endpoint 노출

@@ -11,6 +11,11 @@
   "timezone": "browser",
   "schemaVersion": 35,
   "version": 1,
+  "time": {          
+    "from": "now-5m",
+    "to": "now"
+  },
+
   "panels": [
     {
       "id": 1,
@@ -46,7 +51,14 @@
           "expr": "fraud_model_precision",
           "legendFormat": "precision"
         }
-      ]
+      ],
+       "fieldConfig": {
+    "defaults": {
+      "min": 0,
+      "max": 1
+    },
+    "overrides": []
+  }
     },
     {
       "id": 4,
@@ -58,7 +70,14 @@
           "expr": "fraud_model_recall",
           "legendFormat": "recall"
         }
-      ]
+      ],
+       "fieldConfig": {
+    "defaults": {
+      "min": 0,
+      "max": 1
+    },
+    "overrides": []
+  }
     },
     {
       "id": 5,
@@ -70,7 +89,14 @@
           "expr": "fraud_model_accuracy",
           "legendFormat": "accuracy"
         }
-      ]
+      ],
+       "fieldConfig": {
+    "defaults": {
+      "min": 0,
+      "max": 1
+    },
+    "overrides": []
+  }
     },
     {
       "id": 6,
@@ -82,7 +108,14 @@
           "expr": "fraud_model_feature_drift",
           "legendFormat": "drift score"
         }
-      ]
+      ],
+       "fieldConfig": {
+    "defaults": {
+      "min": 0,
+      "max": 1
+    },
+    "overrides": []
+  }
     },
     {
       "id": 7,
