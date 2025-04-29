@@ -1,6 +1,8 @@
 # Kafka-Spark-Airflow Monitoring Pipeline
 
-![alt text](image.png)
+![alt text](image-1.png)
+
+![alt text](image-2.png)
 
 ## 📌 프로젝트 개요
 
