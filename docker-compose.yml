@@ -73,9 +73,9 @@ services:
     container_name: airflow-webserver
     volumes:
       - ./dags:/opt/airflow/dags
-    image: apache/airflow:2.2.2
+    image: apache/airflow:2.6.3
     environment:
-      - AIRFLOW__CORE__LOAD_EXAMPLES=True
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
     ports:
       - "8081:8080"
@@ -84,9 +84,9 @@ services:
   airflow-scheduler:
     hostname: airflow-scheduler
     container_name: airflow-scheduler
-    image: apache/airflow:2.2.2
+    image: apache/airflow:2.6.3
     environment:
-      - AIRFLOW__CORE__LOAD_EXAMPLES=True
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
     command: scheduler
 
@@ -94,7 +94,7 @@ services:
   airflow-postgres:
     hostname: airflow-postgres
     container_name: airflow-postgres  
-    image: postgres:13
+    image: postgres:15
     environment:
       - POSTGRES_USER=airflow
       - POSTGRES_PASSWORD=airflow
@@ -103,6 +103,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      
   monitor:
     hostname: monitor
     container_name: monitor
